@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lead Generation API Test</h1>
+    
+    <div>
+        <h2>API Status</h2>
+        <button onclick="testStatus()">Test Status</button>
+    </div>
+    
+    <div>
+        <h2>Basic Scraper</h2>
+        <input type="text" id="basicUrl" placeholder="Enter URL" value="https://example.com">
+        <button onclick="testBasicScraper()">Test Basic Scraper</button>
+    </div>
+    
+    <div>
+        <h2>Comprehensive Scraper</h2>
+        <input type="text" id="comprehensiveUrl" placeholder="Enter URL" value="https://example.com">
+        <button onclick="testComprehensiveScraper()">Test Comprehensive Scraper</button>
+    </div>
+    
+    <div>
+        <h2>Google Search</h2>
+        <input type="text" id="industry" placeholder="Industry" value="technology">
+        <input type="text" id="position" placeholder="Position" value="CEO">
+        <input type="text" id="place" placeholder="Place" value="San Francisco">
+        <button onclick="testSearchGoogle()">Test Google Search</button>
+    </div>
+    
+    <div>
+        <h2>Mock Search</h2>
+        <input type="text" id="mockIndustry" placeholder="Industry" value="technology">
+        <input type="text" id="mockPosition" placeholder="Position" value="CEO">
+        <input type="text" id="mockPlace" placeholder="Place" value="San Francisco">
+        <button onclick="testMockSearch()">Test Mock Search</button>
+    </div>
+    
+    <div>
+        <h2>Results:</h2>
+        <pre id="results">Results will appear here...</pre>
+    </div>
+    
+    <script>
+        const apiUrl = 'http://localhost:3000';
+        const resultsElement = document.getElementById('results');
+        
+        function displayResults(data) {
+            resultsElement.textContent = JSON.stringify(data, null, 2);
+        }
+        
+        function displayError(error) {
+            resultsElement.textContent = `Error: ${error.message}\n\n${error.stack || ''}`;
+        }
+        
+        async function testStatus() {
+            try {
+                const response = await fetch(`${apiUrl}/scraper-api/status`);
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+        
+        async function testBasicScraper() {
+            try {
+                const url = document.getElementById('basicUrl').value;
+                const response = await fetch(`${apiUrl}/scraper-api/basic`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url })
+                });
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+        
+        async function testComprehensiveScraper() {
+            try {
+                const url = document.getElementById('comprehensiveUrl').value;
+                const response = await fetch(`${apiUrl}/scraper-api/comprehensive`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        url,
+                        options: {
+                            skipLinks: false,
+                            skipImages: false
+                        }
+                    })
+                });
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+        
+        async function testSearchGoogle() {
+            try {
+                const industry = document.getElementById('industry').value;
+                const position = document.getElementById('position').value;
+                const place = document.getElementById('place').value;
+                
+                const response = await fetch(`${apiUrl}/scraper-api/search`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        industry,
+                        position,
+                        place,
+                        options: {
+                            maxResults: 5,
+                            skipDetailedScraping: false
+                        }
+                    })
+                });
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+        
+        async function testMockSearch() {
+            try {
+                const industry = document.getElementById('mockIndustry').value;
+                const position = document.getElementById('mockPosition').value;
+                const place = document.getElementById('mockPlace').value;
+                
+                const response = await fetch(`${apiUrl}/scraper-api/mock-search`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        industry,
+                        position,
+                        place
+                    })
+                });
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+    </script>
+</body>
+</html> 

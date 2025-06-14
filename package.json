@@ -1,0 +1,43 @@
+{
+  "name": "lead-generation-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "node run-migrations.js",
+    "fix-db": "node add-email-columns.js",
+    "fix-user-columns": "node add-user-columns.js",
+    "update-user-roles": "node update-user-roles.js",
+    "fix-all": "node fix-all-db-issues.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "all-the-cities": "^3.1.0",
+    "axios": "^1.9.0",
+    "bcrypt": "^5.1.1",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.2",
+    "natural": "^8.1.0",
+    "node-cron": "^4.0.7",
+    "nodemailer": "^7.0.3",
+    "pg": "^8.16.0",
+    "pg-hstore": "^2.3.4",
+    "playwright": "^1.52.0",
+    "playwright-extra": "^4.3.6",
+    "playwright-extra-plugin-stealth": "^0.0.1",
+    "sequelize": "^6.37.7",
+    "umzug": "^3.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
