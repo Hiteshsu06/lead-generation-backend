@@ -17,6 +17,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^1.10.0",
+    "@google/generative-ai": "^0.24.1",
     "all-the-cities": "^3.1.0",
     "axios": "^1.9.0",
     "bcrypt": "^5.1.1",

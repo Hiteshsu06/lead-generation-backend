@@ -12,11 +12,4 @@ const {
  */
 router.get('/details', getPromptDetails);
 
-/**
- * @route   POST /scraper/leads
- * @desc    Scrape leads from extracted prompt details
- * @access  Public
- */
-router.post('/leads', getScrappedLeadsByPrompt);
-
 module.exports = router;
